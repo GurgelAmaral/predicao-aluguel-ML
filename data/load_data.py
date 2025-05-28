@@ -1,3 +1,7 @@
+'''
+    load csv info as a pandas dataframe
+'''
+
 import pandas as pd
 
 def load_data(path="data\sao-paulo-properties-april-2019.csv"):
