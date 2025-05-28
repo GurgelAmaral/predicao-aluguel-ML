@@ -1,3 +1,3 @@
 '''
-    numerical and categorical pipelines
+    numeric and cat pipelines
 '''
