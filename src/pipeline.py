@@ -9,13 +9,7 @@ import features
 '''
 
 
-
-built_num_pipeline = pr.build_num_pipeline()
-built_cat_pipeline = pr.build_cat_pipeline()
-
-predefined_num_cols, predefined_cat_cols = features.get_num_col_features()
-
-def build_final_pipeline(num_pipeline=built_num_pipeline, cat_pipeline=built_cat_pipeline, num_cols=predefined_num_cols, cat_cols=predefined_cat_cols ):
+def build_final_pipeline(num_pipeline, cat_pipeline, num_cols, cat_cols):
 
     prep = ColumnTransformer(
         transformers=[

@@ -26,7 +26,6 @@ def define_train_test(df=load_data(), y_target_column_name='Price'):
     train_df.to_csv("src/train.csv", index=False)
     test_df.to_csv("src/test.csv", index=False)
 
-define_train_test()
 
 #arruma a coluna Negotiation Type caso não seja operação de compra nem de venda, baseado no preço
 '''def fix_operation_type(df=load_data()):
