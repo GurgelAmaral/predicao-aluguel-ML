@@ -25,7 +25,7 @@ def build_final_pipeline(num_pipeline=built_num_pipeline, cat_pipeline=built_cat
     )
 
     final_pipeline = Pipeline([
-        ('negotiation_type_checker', FunctionTransformer(pr.fix_operation_type)),
+        #('negotiation_type_checker', FunctionTransformer(pr.fix_operation_type)),
         ('prep', prep),
         ('model', Ridge())
     ])
