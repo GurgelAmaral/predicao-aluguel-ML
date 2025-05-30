@@ -8,6 +8,9 @@ from sklearn.model_selection import train_test_split
 from src.evaluate import evaluate_model
 from sklearn.preprocessing import StandardScaler
 import numpy as np
+
+
+
 #carregamento dos dados
 df = load_data()
 df = df.drop(columns=['District'])
@@ -33,10 +36,8 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.15)
 #treinamento do modelo com x e y train
 model.fit(x_train, y_train)
 
-y_pred = model.predict(x_test)
-
 #avaliação do modelo pós treino
-r2, mse, c_val = evaluate_model(model, x_train, y_train, y_test, y_pred=y_pred, k_num=30)
+r2, mse, c_val = evaluate_model(model, x_train, x_test, y_train, y_test, k_num=30)
 print(f'rmse: {np.sqrt(mse)}')
 print(f'r2: {r2}')
 print(f'validação cruzada: {np.mean(c_val)}')
