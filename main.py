@@ -26,7 +26,7 @@ cat_pipeline = build_cat_pipeline()
 num_cols, cat_cols = get_num_col_features(df)
 
 #criação do pipeline com o modelo final + column transformer dos pipelines numéricos e categóricos
-model = build_final_pipeline(num_pipeline, cat_pipeline, num_cols, cat_cols)
+model = build_final_pipeline(num_pipeline, cat_pipeline, num_cols, cat_cols, degree_eq=1)
 
 #train test split do dataset
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.15)
