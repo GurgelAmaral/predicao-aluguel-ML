@@ -7,7 +7,7 @@ import numpy as np
 
 
 #carrega o df do path e retorna x e y já limpos
-def load_data(path, drop_cat_cols, drop_num_cols, target_col, special_case_query, target_log_scale=False):
+def load_data(path, target_col, drop_cat_cols=[], drop_num_cols=[], special_case_query='', target_log_scale=False):
     #prepara o df dropando as colunas que não se aplicam ao problema
     df = pd.read_csv(path)
     df = df.drop(columns=drop_cat_cols)

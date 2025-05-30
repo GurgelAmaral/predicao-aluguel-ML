@@ -9,28 +9,26 @@ from src.evaluate import evaluate_model
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 
-
+#CORRIGIR ESTE MAIN.PY
 
 #carregamento dos dados
-df = load_data()
-df = df.drop(columns=['District'])
-df = df.query('`Negotiation Type` == "rent"')
-
-#aquisição dos nomes das colunas numéricas e categóricas para o column transformer
-num_cols, cat_cols = get_num_col_features(df)
-num_cols.remove('Price')
+df, x, y = load_data(path='data\sao-paulo-properties-april-2019.csv',
+                     target_col='Price',
+                     drop_cat_cols=['District'], 
+                     special_case_query='`Negotiation Type` == "rent"',
+                     target_log_scale=True)
 
 #criação dos pipelines
 num_pipeline = build_num_pipeline()
 cat_pipeline = build_cat_pipeline()
 
+#captura das features (colunas) para uso no pipeline final
+num_cols, cat_cols = get_num_col_features(df)
+
 #criação do pipeline com o modelo final + column transformer dos pipelines numéricos e categóricos
 model = build_final_pipeline(num_pipeline, cat_pipeline, num_cols, cat_cols)
 
 #train test split do dataset
-x = df.drop(columns=['Price'])
-scaler = StandardScaler()
-y = np.log(df['Price'])
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.15)
 
 #treinamento do modelo com x e y train
