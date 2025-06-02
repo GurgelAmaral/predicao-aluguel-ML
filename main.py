@@ -9,6 +9,7 @@ from src.evaluate import evaluate_model
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 from src.dump import dump_model
+from src.decode import decode_pred
 
 #CORRIGIR ESTE MAIN.PY
 
@@ -41,6 +42,7 @@ print(f'rmse: {np.sqrt(mse)}')
 print(f'r2: {r2}')
 print(f'validação cruzada: {np.mean(c_val)}')
 
+#exemplo de dataset para predição
 predict_dict = {
     'Condo':[1000],
     'Size':[55],
@@ -58,9 +60,13 @@ predict_dict = {
     'Longitude':[-46.601769]
 }
 
+#passando para dataframe para melhor reconhecimento pelo modelo para predict
 pred_df = pd.DataFrame(predict_dict)
 
-print(np.exp(model.predict(pred_df)))
+#decode para decodificar o modelo e corrigir com a taxa acumulada de aumento
+dec_value = decode_pred(model.predict(pred_df), correction_rate=1.475619, y_log_scale=True)
 
-dump_model(model, name='pred_rent_model.joblib')
+print(dec_value)
+
+#dump_model(model, name='pred_rent_model.joblib')
 
