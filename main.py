@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 from src.evaluate import evaluate_model
 from sklearn.preprocessing import StandardScaler
 import numpy as np
+from src.dump import dump_model
 
 #CORRIGIR ESTE MAIN.PY
 
@@ -61,4 +62,5 @@ pred_df = pd.DataFrame(predict_dict)
 
 print(np.exp(model.predict(pred_df)))
 
+dump_model(model, name='pred_rent_model.joblib')
 
