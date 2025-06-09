@@ -71,5 +71,5 @@ print(f'r2: {r2}')
 print(f'validação cruzada: {np.mean(c_val)}')
 
 #armazena modelo em src para uso posterior
-dump_model(new_tuned_model, name='pred_rent_model.joblib')
+dump_model(new_tuned_model, compress_value=7, name='pred_rent_model.joblib')
 
