@@ -26,4 +26,4 @@ predict_dict = {
 pred_df = pd.DataFrame(predict_dict)
 
 prediction = model.predict(pred_df)
-print(decode_pred(predicted_value=prediction, y_log_scale=True))
+print(f'Aluguel aproximado calculado do imóvel: R$ {decode_pred(predicted_value=prediction, y_log_scale=True)}')

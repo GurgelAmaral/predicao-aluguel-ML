@@ -12,7 +12,7 @@ from src.dump import dump_model
 from src.decode import decode_pred
 from src.tuning import tuned_model
 
-#CORRIGIR ESTE MAIN.PY
+
 
 #carregamento dos dados
 df, x, y = load_data(path='data\sao-paulo-properties-april-2019.csv',
@@ -36,6 +36,7 @@ model = build_final_pipeline(num_pipeline, cat_pipeline, num_cols, cat_cols, num
 #train test split do dataset
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.09)
 
+print('Construção modelo base [CHECK]')
 #procura pelo melhor modelo de acordo com os hiperparâmetros de tuning.py
 new_tuned_model = tuned_model(x_train, y_train, model)
 
@@ -65,6 +66,7 @@ dec_tuned_model_value = decode_pred(new_tuned_model.predict(pred_df), correction
 
 print(dec_tuned_model_value)
 print('\n')
+print('-'*128)
 
 print('Avaliações métricas do melhor modelo:')
 r2, mse, c_val = evaluate_model(new_tuned_model, x_train, x_test, y_train, y_test, k_num=30)
@@ -73,5 +75,10 @@ print(f'r2: {r2}')
 print(f'validação cruzada: {np.mean(c_val)}')
 
 #armazena modelo em src para uso posterior
-dump_model(new_tuned_model, compress_value=7, name='pred_rent_model.joblib')
+try:
+    print('salvando e exportando o modelo . . .')
+    dump_model(new_tuned_model, name='pred_rent_model.joblib')
+    print('Modelo salvo e exportando com sucesso como "pred_rent_model.joblib"')
+except Exception as e:
+    print(f'Não foi possível salvar e exportar o modelo. Tente novamente | {e}')
 

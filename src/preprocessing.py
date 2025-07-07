@@ -7,13 +7,6 @@ from scipy import stats
     numeric and cat pipelines
 '''
 
-#arruma a coluna Negotiation Type caso não seja operação de compra nem de venda, baseado no preço
-'''def fix_operation_type(df=load_data()):
-    df = df.copy()
-    condition = df['Negotiation Type'].isna() and (df['Price'] < df['Price'].max())
-    df.loc[condition, 'Negotiation Type'] = 'rent'
-    df['Negotiation Type'].fillna("sell", inplace=True)
-    return df'''
 
 def fix_symmetry(df, fixable_cols=None):
     if fixable_cols is not None:
