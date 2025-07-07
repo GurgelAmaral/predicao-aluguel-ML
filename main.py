@@ -37,45 +37,19 @@ model = build_final_pipeline(num_pipeline, cat_pipeline, num_cols, cat_cols, num
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.09)
 
 print('Construção modelo base [CHECK]')
+
 #procura pelo melhor modelo de acordo com os hiperparâmetros de tuning.py
 new_tuned_model = tuned_model(x_train, y_train, model)
 
-#exemplo de dataset para predição
-predict_dict = {
-    'Condo':[1000],
-    'Size':[55],
-    'Rooms':[2],
-    'Toilets':[2],
-    'Suites':[1],
-    'Parking':[1],
-    'Elevator':[1],
-    'Furnished':[1],
-    'Swimming Pool':[1],
-    'New':[1],
-    'Negotiation Type':['rent'],
-    'Property Type':['apartment'],
-    'Latitude':[-23.482119],
-    'Longitude':[-46.601769]
-}
-
-#passando para dataframe para melhor reconhecimento pelo modelo para predict
-pred_df = pd.DataFrame(predict_dict)
-
-#decode para decodificar a predição do modelo e corrigir com a taxa acumulada de aumento
-dec_tuned_model_value = decode_pred(new_tuned_model.predict(pred_df), correction_rate=1.475619, y_log_scale=True)
-
-print(dec_tuned_model_value)
-print('\n')
-print('-'*128)
-
-print('Avaliações métricas do melhor modelo:')
 r2, mse, c_val = evaluate_model(new_tuned_model, x_train, x_test, y_train, y_test, k_num=30)
+print('Avaliações métricas do melhor modelo:')
 print(f'rmse: {np.sqrt(mse)}')
 print(f'r2: {r2}')
 print(f'validação cruzada: {np.mean(c_val)}')
 
 #armazena modelo em src para uso posterior
 try:
+    print('-'*128)
     print('salvando e exportando o modelo . . .')
     dump_model(new_tuned_model, name='pred_rent_model.joblib')
     print('Modelo salvo e exportando com sucesso como "pred_rent_model.joblib"')
